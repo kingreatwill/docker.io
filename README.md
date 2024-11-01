@@ -1,9 +1,39 @@
 
+
 # docker.io：Docker仓库镜像代理工具
+
+## GitHub workflows方式
+
+### 自己下载image和导入
+选择Actions
+点击运行
+在工作流的输入框里输入镜像名称（注意检查句首不要有空格）,多个逗号隔开
+`dreamacro/clash:v1.18.0,haishanh/yacd`
+
+将下载好的压缩包上传到docker宿主机上。
+```
+# 解压
+unzip docker-images-tar.zip
+# 再解压：
+tar -zxvf x86-64-images.tar.gz
+ls -lh alpine:latest-amd64.tar
+​
+# 导入
+docker load < alpine:latest-amd64.tar
+​
+# 导入成功检查
+docker images
+```
+
+### 上传到github的packages中
+
+https://docs.github.com/zh/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+
+## Cloudflare Workers方式
 
 这个项目是一个基于 Cloudflare Workers 的 Docker 镜像代理工具。它能够中转对 Docker 官方镜像仓库的请求，解决一些访问限制和加速访问的问题。
 
-## 部署方式
+### 部署方式
 
 - **Workers** 部署：复制 [_worker.js](https://github.com/kingreatwill/docker.io/blob/main/_worker.js) 代码，`保存并部署`即可
 - **Pages** 部署：`Fork` 后 `连接GitHub` 一键部署即可
@@ -14,11 +44,11 @@
 选择仓库
 保存并部署
 
-## 如何使用？ [视频教程](https://www.youtube.com/watch?v=l2jwq9CagNQ)
+### 如何使用？ [视频教程](https://www.youtube.com/watch?v=l2jwq9CagNQ)
 
 例如您的Workers项目域名为：`docker.fxxk.dedyn.io`；
 
-### 1.官方镜像路径前面加域名
+#### 1.官方镜像路径前面加域名
 ```shell
 docker pull docker.fxxk.dedyn.io/stilleshan/frpc:latest
 ```
@@ -26,7 +56,7 @@ docker pull docker.fxxk.dedyn.io/stilleshan/frpc:latest
 docker pull docker.fxxk.dedyn.io/library/nginx:stable-alpine3.19-perl
 ```
 
-### 2.一键设置镜像加速
+#### 2.一键设置镜像加速
 修改文件 `/etc/docker/daemon.json`（如果不存在则创建）
 ```shell
 sudo mkdir -p /etc/docker
@@ -38,8 +68,8 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
-### 3. 配置常见仓库的镜像加速
-#### 3.1 配置  
+#### 3. 配置常见仓库的镜像加速
+##### 3.1 配置  
 Containerd 较简单，它支持任意 `registry` 的 `mirror`，只需要修改配置文件 `/etc/containerd/config.toml`，添加如下的配置：  
 ```yaml
     [plugins."io.containerd.grpc.v1.cri".registry]
@@ -101,7 +131,7 @@ location = "https://xxxx.onrender.com"
 
 ```
 
-#### 3.3 使用
+##### 3.3 使用
 对于以上配置，k8s在使用的时候，就可以直接`pull`外部无法pull的镜像了 
  手动可以直接`pull` 配置了`mirror`的仓库  
  `crictl pull registry.k8s.io/kube-proxy:v1.28.4`
@@ -112,7 +142,7 @@ location = "https://xxxx.onrender.com"
 
 
 
-## 变量说明
+### 变量说明
 | 变量名 | 示例 | 必填 | 备注 | 
 |--|--|--|--|
 | URL302 | https://t.me/CMLiussss |❌| 主页302跳转 |
@@ -122,7 +152,7 @@ location = "https://xxxx.onrender.com"
 
 
 
-# 第三方 DockerHub 镜像服务
+## 第三方 DockerHub 镜像服务
 
 **注意:**
 - 以下内容仅做镜像服务的整理与搜集，未做任何安全性检测和验证。
