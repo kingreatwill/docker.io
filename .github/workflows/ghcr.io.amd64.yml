@@ -22,7 +22,7 @@ jobs:
 
     - name: Login docker
       run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u kingreatwill --password-stdin
 
     - name: Pull Docker Images and Package
       run: |
