@@ -33,12 +33,14 @@ https://docs.github.com/zh/packages/working-with-a-github-packages-registry/work
 
 ## Cloudflare Workers方式
 
+https://www.cloudflare.com/
+
 这个项目是一个基于 Cloudflare Workers 的 Docker 镜像代理工具。它能够中转对 Docker 官方镜像仓库的请求，解决一些访问限制和加速访问的问题。
 
 ### 部署方式
 
-- **Workers** 部署：复制 [_worker.js](https://github.com/kingreatwill/docker.io/blob/main/_worker.js) 代码，`保存并部署`即可
-- **Pages** 部署：`Fork` 后 `连接GitHub` 一键部署即可
+- 方式一. **Workers** 部署：复制 [_worker.js](https://github.com/kingreatwill/docker.io/blob/main/_worker.js) 代码，`保存并部署`即可
+- 方式二. **Pages** 部署：`Fork` 后 `连接GitHub` 一键部署即可
 
 - 登录cloudflare并点击Worker和Pages
 点击 “Worker和Pages”再点 概述
