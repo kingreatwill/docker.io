@@ -30,6 +30,6 @@ jobs:
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do
           docker pull "${image}" --platform "linux/amd64"
-          docker tag "${image}" "ghcr.io/kingreatwill/${image}"
-          docker push "ghcr.io/kingreatwill/${image}"
+          docker tag "${image}" "ghcr.io/kingreatwill/docker.io/${image}"
+          docker push "ghcr.io/kingreatwill/docker.io/${image}"
         done
