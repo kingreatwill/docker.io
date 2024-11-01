@@ -20,6 +20,10 @@ jobs:
           docker system prune -a -f
           docker volume prune -f
 
+    - name: Login docker
+      run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+
     - name: Pull Docker Images and Package
       run: |
         images="${{ github.event.inputs.docker_images }}"
